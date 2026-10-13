@@ -10,10 +10,8 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <!-- ============ VIDEO.JS CSS + JS ============ -->
     <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
     <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
-    <!-- ============================================ -->
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; user-select: none; -webkit-tap-highlight-color: transparent; }
         body { background-color: #0b0b0d; color: #fff; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
@@ -140,21 +138,7 @@
 
         /* ============ VIDEO.JS CUSTOM THEME ============ */
         .video-js { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important; }
-        .video-js .vjs-big-play-button {
-            background-color: #ff9000 !important;
-            border: none !important;
-            border-radius: 50% !important;
-            width: 70px !important;
-            height: 70px !important;
-            line-height: 70px !important;
-            top: 50% !important;
-            left: 50% !important;
-            transform: translate(-50%, -50%) !important;
-            margin: 0 !important;
-            font-size: 28px !important;
-            box-shadow: 0 0 30px rgba(255, 144, 0, 0.6) !important;
-            transition: all 0.3s ease !important;
-        }
+        .video-js .vjs-big-play-button { background-color: #ff9000 !important; border: none !important; border-radius: 50% !important; width: 70px !important; height: 70px !important; line-height: 70px !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; margin: 0 !important; font-size: 28px !important; box-shadow: 0 0 30px rgba(255, 144, 0, 0.6) !important; transition: all 0.3s ease !important; }
         .video-js .vjs-big-play-button:hover { transform: translate(-50%, -50%) scale(1.1) !important; background-color: #ffaa33 !important; }
         .video-js .vjs-big-play-button .vjs-icon-placeholder:before { color: #000 !important; }
         .video-js .vjs-control-bar { background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 70%, transparent 100%) !important; height: 4.5em !important; }
@@ -344,7 +328,7 @@
 
     <script>
         // ============================================================
-        // ================== CONFIG — UPDATED ✅ ====================
+        // ================== CONFIG ==================================
         // ============================================================
         const CONFIG = {
             GITHUB_OWNER:  "admin01web",
@@ -354,16 +338,21 @@
         };
         // ============================================================
         
+        // ============================================================
+        // ============ NEW FIREBASE CONFIG ✅ ========================
+        // ============================================================
         const firebaseConfig = {
-            apiKey: "AIzaSyDU5kvbYJSq-XppxR4-LzNVjDX1mELq4gw",
-            authDomain: "upi-verification-5199a.firebaseapp.com",
-            databaseURL: "https://upi-verification-5199a-default-rtdb.firebaseio.com",
-            projectId: "upi-verification-5199a",
-            storageBucket: "upi-verification-5199a.firebasestorage.app",
-            messagingSenderId: "39067226112",
-            appId: "1:39067226112:web:9ad91c393ff7a466f488e5",
-            measurementId: "G-1XZ7DJX3PK"
+            apiKey: "AIzaSyB_WHX4mUl7h7ThBXMNYeQQgb1TDq-czIk",
+            authDomain: "night-show-4e391.firebaseapp.com",
+            databaseURL: "https://night-show-4e391-default-rtdb.firebaseio.com",
+            projectId: "night-show-4e391",
+            storageBucket: "night-show-4e391.firebasestorage.app",
+            messagingSenderId: "355302347466",
+            appId: "1:355302347466:web:e814f850d9042ace959a33",
+            measurementId: "G-G466YKYL6C"
         };
+        // ============================================================
+        
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
         const auth = firebase.auth();
@@ -500,10 +489,7 @@
         let userWallet = { coins: 0, unlockedVideos: [] };
         let coinHistory = [];
         let paymentTimer = null, backendTimer = null, currentPaymentRefKey = null;
-        
-        // ============ VIDEO.JS PLAYER INSTANCE ============
         let vjsPlayer = null;
-        // ==================================================
 
         function saveWallet(uid) { 
             if (!uid) uid = 'guest';
@@ -801,9 +787,6 @@
             }
         }
 
-        // ============================================================
-        // ============ GITHUB VIDEOS FETCHER =========================
-        // ============================================================
         async function ghFetch(path) {
             const cacheKey = 'gh_cache_' + path + '_' + CONFIG.GITHUB_BRANCH;
             try {
@@ -1035,9 +1018,6 @@
         };
         function closeUnlockModal() { document.getElementById('unlockModal').classList.remove('show'); pendingUnlockVideo = null; }
 
-        // ============================================================
-        // ============ VIDEO.JS PLAYER ===============================
-        // ============================================================
         function openPlayer(video) {
             const box = document.getElementById('playerBox');
             
@@ -1119,7 +1099,6 @@
                 if(screen.orientation && screen.orientation.unlock) screen.orientation.unlock(); 
             } 
         }
-        // ============================================================
 
         function initiatePayment(coins, basePrice, packName) {
             closeCoinModal();
@@ -1192,9 +1171,6 @@
             let a = document.createElement("a"); a.href = c.toDataURL("image/png"); a.download = "NIGHTSHOW_UPI.png"; document.body.appendChild(a); a.click(); document.body.removeChild(a);
         }
 
-        // ============================================================
-        // ============ ATTRACTIVE PDF RECEIPT ========================
-        // ============================================================
         function downloadPDFReceipt(totalAmount, transactionId, userId) {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
