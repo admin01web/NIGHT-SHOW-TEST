@@ -10,10 +10,10 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <!-- ============ VIDEO.JS CSS + JS (NEW) ============ -->
+    <!-- ============ VIDEO.JS CSS + JS ============ -->
     <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
     <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
-    <!-- ================================================= -->
+    <!-- ============================================ -->
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; user-select: none; -webkit-tap-highlight-color: transparent; }
         body { background-color: #0b0b0d; color: #fff; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
@@ -137,8 +137,8 @@
         .ad-banner img { max-height: 90px; border-radius: 8px; }
         .ad-banner .ad-label { font-size: 9px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
         @media (max-width: 480px) { .logo { font-size: 15px; } .category-btn .cat-text { max-width: 70px; font-size: 10px; } .hero-desc { display: none; } }
-        
-        /* ============ VIDEO.JS CUSTOM THEME (NEW) ============ */
+
+        /* ============ VIDEO.JS CUSTOM THEME ============ */
         .video-js { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important; }
         .video-js .vjs-big-play-button {
             background-color: #ff9000 !important;
@@ -175,7 +175,7 @@
         .video-js .vjs-time-divider { color: #fff !important; }
         .video-js .vjs-icon-placeholder:before { color: #fff !important; }
         .video-js .vjs-play-control.vjs-playing .vjs-icon-placeholder:before { color: #ff9000 !important; }
-        /* ===================================================== */
+        /* ============================================== */
     </style>
 </head>
 <body>
@@ -344,13 +344,13 @@
 
     <script>
         // ============================================================
-        // ================== CONFIG — YAHAN APNI DETAILS BHAR ========
+        // ================== CONFIG — UPDATED ✅ ====================
         // ============================================================
         const CONFIG = {
-            GITHUB_OWNER:  "YOUR_GITHUB_USERNAME",   // e.g. "rahul123"
-            GITHUB_REPO:   "YOUR_REPO_NAME",          // e.g. "nightshow"
-            GITHUB_BRANCH: "main",                    // usually "main"
-            VIDEOS_FOLDER: "videos"                   // repo ke andar folder ka naam
+            GITHUB_OWNER:  "admin01web",
+            GITHUB_REPO:   "NIGHT-SHOW-TEST",
+            GITHUB_BRANCH: "main",
+            VIDEOS_FOLDER: "VIDEOS"
         };
         // ============================================================
         
@@ -501,9 +501,9 @@
         let coinHistory = [];
         let paymentTimer = null, backendTimer = null, currentPaymentRefKey = null;
         
-        // ============ VIDEO.JS PLAYER INSTANCE (NEW) ============
+        // ============ VIDEO.JS PLAYER INSTANCE ============
         let vjsPlayer = null;
-        // ========================================================
+        // ==================================================
 
         function saveWallet(uid) { 
             if (!uid) uid = 'guest';
@@ -857,7 +857,7 @@
                                 fileName: v.name,
                                 name: cleanName,
                                 folderName: cat,
-                                videoUrl: `videos/${encodeURIComponent(cat)}/${encodeURIComponent(v.name)}`,
+                                videoUrl: `VIDEOS/${encodeURIComponent(cat)}/${encodeURIComponent(v.name)}`,
                                 thumbUrl: null
                             });
                         });
@@ -1036,18 +1036,16 @@
         function closeUnlockModal() { document.getElementById('unlockModal').classList.remove('show'); pendingUnlockVideo = null; }
 
         // ============================================================
-        // ============ VIDEO.JS PLAYER (NEW - UPDATED) ===============
+        // ============ VIDEO.JS PLAYER ===============================
         // ============================================================
         function openPlayer(video) {
             const box = document.getElementById('playerBox');
             
-            // Destroy old player if exists
             if (vjsPlayer) {
                 try { vjsPlayer.dispose(); } catch(e) {}
                 vjsPlayer = null;
             }
             
-            // Create fresh video element for video.js
             box.innerHTML = `
                 <video
                     id="nightshow-video"
@@ -1063,7 +1061,6 @@
                 </video>
             `;
             
-            // Initialize video.js
             vjsPlayer = videojs('nightshow-video', {
                 autoplay: true,
                 controls: true,
@@ -1082,7 +1079,6 @@
                 }
             });
             
-            // Save to watch history
             if (auth.currentUser) {
                 const path = video.path;
                 if (userWallet.unlockedVideos.includes(path)) {
@@ -1095,7 +1091,6 @@
                 }
             }
             
-            // Player error handling
             vjsPlayer.on('error', () => {
                 const err = vjsPlayer.error();
                 console.error('Video.js error:', err);
